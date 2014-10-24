@@ -1,4 +1,8 @@
 class CRM
+	def initialize(name)
+		@name = name
+	end	
+
 	def print_main_menu
 	  puts "[1] Add a new contact"
 	  puts "[2] Modify an existing contact"
