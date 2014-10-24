@@ -1,22 +1,33 @@
-require_relative './contact.rb'
-
 class CRM
+require_relative './contact.rb'
+require_relative './rolodex.rb'
+
+
 	attr_reader :name
 
 	def initialize(name)
 		@name = name
+		@rolodex = Rolodex.new
 	end
 
 	def print_main_menu
 	  puts "[1] Add a new contact"
 	  puts "[2] Modify an existing contact"
 	  puts "[3] Display all the contacts"
-	  puts "[4] Display all the contacts"
+	  puts "[4] Display a contact"
 	  puts "[5] Display an attribute"
 	  puts "[6] Delete a contact"
 	  puts "[7] Exit"
 	  puts "Enter a number: "
 	end
+
+	def print_modify_menu
+		puts "[1] Change first Nnme"
+		puts "[2] Change last name"
+		puts "[3] Change email"
+		puts "[4] Change notes"
+	end
+
 
 	def main_menu
 		puts "Welcome to #{@name}!"
@@ -58,13 +69,13 @@ class CRM
 		email = gets.chomp
 		print "Note: "
 		note = gets.chomp
+		contact = Contact.new(first_name, last_name, email, note)
+		puts "contact created with data:"
+		puts ""
+		@rolodex.add_contact(contact)
 	end
-
-	contact = Contact.new(first_name, last_name, email, note)
-	@rolodex.add_contact(contact)
 
 end
 
-trial = CRM.new("jimi CRM")
-trial.main_menu
-
+crm = CRM.new("jimi crm")
+crm.main_menu

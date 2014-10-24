@@ -10,4 +10,10 @@ class Rolodex
 		contact.id = @@index
 		@@index += 1
 		@contacts << contact
+	end
+
+	def modify_contact(contact)
+	end
+	
+
 end
