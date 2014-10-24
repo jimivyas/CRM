@@ -1,4 +1,5 @@
 class CRM
+	attr_accessor :name
 	def initialize(name)
 		@name = name
 	end	
@@ -15,6 +16,7 @@ class CRM
 	end
 
 	def main_menu
+		puts "Welcome to #{@name}!"
 		print_main_menu
 		input = gets.chomp.to_i
 		choose_option(input)
@@ -37,7 +39,7 @@ class CRM
 	end
 end
 
-crm = CRM.new
+crm = CRM.new("JIMI VYAS CRM")
 crm.main_menu
 
 
