@@ -1,7 +1,8 @@
 require_relative './contact.rb'
 
 class CRM
-	attr_accessor :name
+	attr_reader :name
+
 	def initialize(name)
 		@name = name
 	end
@@ -37,9 +38,16 @@ class CRM
 			puts "Thanks for using this software! Please donate to jimipvyas+paypal@gmail.com via paypal if you enjoyed using it."
 			return
 		else
-			raise "you dun fucked up at choose_option with #{option}"
+			raise "you dun goofed at choose_option with #{option}"
 		end
 	end
+
+	def display_all_contacts
+		@rolodex.contacts.each do |contact|
+			puts "#{contact.first_name}, #{contact.last_name}, #{contact.email}"
+		end
+	end
+
 
 	def add_contact
 		print "First Name: "
@@ -53,13 +61,10 @@ class CRM
 	end
 
 	contact = Contact.new(first_name, last_name, email, note)
-
-
+	@rolodex.add_contact(contact)
 
 end
 
-crm = CRM.new("JIMI VYAS CRM")
-crm.main_menu
-
-
+trial = CRM.new("jimi CRM")
+trial.main_menu
 
