@@ -1,8 +1,10 @@
+require_relative './contact.rb'
+
 class CRM
 	attr_accessor :name
 	def initialize(name)
 		@name = name
-	end	
+	end
 
 	def print_main_menu
 	  puts "[1] Add a new contact"
@@ -22,6 +24,7 @@ class CRM
 		choose_option(input)
 	end
 
+
 	def choose_option(option)
 		case option
 		when 1 then add_contact
@@ -30,13 +33,29 @@ class CRM
 		when 4 then display_contact
 		when 5 then display_attribute
 		when 6 then delete_contact
-		when 7 
+		when 7
 			puts "Thanks for using this software! Please donate to jimipvyas+paypal@gmail.com via paypal if you enjoyed using it."
 			return
 		else
 			raise "you dun fucked up at choose_option with #{option}"
 		end
 	end
+
+	def add_contact
+		print "First Name: "
+		first_name = gets.chomp
+		print "Last Name: "
+		last_name = gets.chomp
+		print "Email: "
+		email = gets.chomp
+		print "Note: "
+		note = gets.chomp
+	end
+
+	contact = Contact.new(first_name, last_name, email, note)
+
+
+
 end
 
 crm = CRM.new("JIMI VYAS CRM")
