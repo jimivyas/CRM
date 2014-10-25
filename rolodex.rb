@@ -28,6 +28,18 @@ class Rolodex
 		puts "#{id+1} #{@contacts[id].first_name} #{@contacts[id].last_name}, #{@contacts[id].email}: #{contacts[id].note}"
 	end
 
+	def display_attribute(attribute)
+		@contacts.each do |contact|
+			case attribute
+			when 1 then puts contact.first_name
+			when 2 then puts contact.last_name
+			when 3 then puts contact.email
+			when 4 then puts contact.note
+			end
+		end
+	end
+
+
 
 
 end

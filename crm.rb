@@ -33,9 +33,7 @@ require_relative './rolodex.rb'
 				return
 			else choose_option(input)
 			end
-
 		end
-
 	end
 
 	def choose_option(option)
@@ -64,7 +62,18 @@ require_relative './rolodex.rb'
 		@rolodex.display_contact(input)
 	end
 
-
+	def display_attribute
+		puts "Please select an option"
+		puts "[1] First name"
+		puts "[2] Last name"
+		puts "[3] Email address"
+		puts "[4] Notes"
+		input = gets.chomp.to_i
+		case input
+		when 1...4 then @rolodex.display_attribute(input)
+		else "You did not enter a number corresponding to any of those options. Returning you to the main menu."
+		end
+	end
 
 	def display_contact
 		puts "Do you know the number of the contact you wish to display? Enter Y or N"
