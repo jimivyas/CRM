@@ -51,17 +51,10 @@ require_relative './rolodex.rb'
 
 	def display_all_contacts
 		@rolodex.contacts.each do |contact|
-			puts "#{contact.id + 1}: #{contact.first_name}, #{contact.last_name}, #{contact.email}"
+			puts "#{contact.id + 1}: #{contact.first_name}, #{contact.last_name}, #{contact.email}: #{contact.note}"
 		end
 	end
-
-	def display_contact_with_number
-		display_all_contacts
-		puts "Please enter the number of the contact you wish to display:"
-		input = gets.chomp.to_i
-		@rolodex.display_contact(input)
-	end
-
+	
 	def display_attribute
 		puts "Please select an option"
 		puts "[1] First name"
@@ -75,6 +68,12 @@ require_relative './rolodex.rb'
 		end
 	end
 
+	def display_contact_with_number
+		puts "Please enter the number of the contact you wish to display:"
+		input = gets.chomp.to_i
+		@rolodex.display_contact(input)
+	end
+	
 	def display_contact
 		puts "Do you know the number of the contact you wish to display? Enter Y or N"
 		input = gets.chomp.upcase
@@ -83,11 +82,31 @@ require_relative './rolodex.rb'
 			display_contact_with_number
 		when "N"
 			puts "Displaying all contacts:"
+			display_all_contacts
 			display_contact_with_number
 			else puts "You did not enter Y or N. Returning you to the main menu."
 		end
 	end
-	
+
+	def delete_contact_with_number
+		puts "Please enter the number of the contact you wish to delete."
+		input = gets.chomp.to_i
+		@rolodex.delete_contact(input)
+	end
+
+
+	def delete_contact
+		puts "Do you know the number of the contact you wish to delete? Enter Y or N."
+		input = gets.chomp.upcase
+		case input
+		when "Y"
+			delete_contact_with_number
+		when "N"
+			puts "Displaying all contacts:"
+			display_all_contacts
+			delete_contact_with_number
+		end
+	end
 
 #this was an idea i had. It does not seem to be posible in Ruby AFAIK.
 	# def number_known_check(method)

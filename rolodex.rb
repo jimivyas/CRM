@@ -25,8 +25,23 @@ class Rolodex
 
 	def display_contact(id)
 		id -=1
-		puts "#{id+1} #{@contacts[id].first_name} #{@contacts[id].last_name}, #{@contacts[id].email}: #{contacts[id].note}"
+		if id < @contacts.length
+			puts "#{id+1} #{@contacts[id].first_name} #{@contacts[id].last_name}, #{@contacts[id].email}: #{contacts[id].note}"
+		else
+			puts "That is not a valid contact number. Returning you to the main menu:"
+		end
 	end
+
+
+	def delete_contact(id)
+		id -=1
+		if id < @contacts.length
+			@contacts.delete_at(id)
+		else 
+			puts "That is not a valid contact number. Returning you to the main menu:"
+		end
+	end
+
 
 	def display_attribute(attribute)
 		@contacts.each do |contact|
