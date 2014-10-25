@@ -21,21 +21,22 @@ require_relative './rolodex.rb'
 	  puts "Enter a number: "
 	end
 
-	def print_modify_menu
-		puts "[1] Change first Nnme"
-		puts "[2] Change last name"
-		puts "[3] Change email"
-		puts "[4] Change notes"
-	end
-
 
 	def main_menu
 		puts "Welcome to #{@name}!"
-		print_main_menu
-		input = gets.chomp.to_i
-		choose_option(input)
-	end
+		#loops unless option 7 is chosen
+		while true
+			print_main_menu
+			input = gets.chomp.to_i
+			if input == 7
+				puts "Thanks for using this software! Please donate to jimipvyas+paypal@gmail.com via paypal if you enjoyed using it."
+				return
+			else choose_option(input)
+			end
 
+		end
+
+	end
 
 	def choose_option(option)
 		case option
@@ -45,9 +46,6 @@ require_relative './rolodex.rb'
 		when 4 then display_contact
 		when 5 then display_attribute
 		when 6 then delete_contact
-		when 7
-			puts "Thanks for using this software! Please donate to jimipvyas+paypal@gmail.com via paypal if you enjoyed using it."
-			return
 		else
 			raise "you dun goofed at choose_option with #{option}"
 		end
@@ -55,9 +53,72 @@ require_relative './rolodex.rb'
 
 	def display_all_contacts
 		@rolodex.contacts.each do |contact|
-			puts "#{contact.first_name}, #{contact.last_name}, #{contact.email}"
+			puts "#{contact.id + 1}: #{contact.first_name}, #{contact.last_name}, #{contact.email}"
 		end
 	end
+
+	def display_contact_with_number
+		display_all_contacts
+		puts "Please enter the number of the contact you wish to display:"
+		input = gets.chomp.to_i
+		@rolodex.display_contact(input)
+	end
+
+
+
+	def display_contact
+		puts "Do you know the number of the contact you wish to display? Enter Y or N"
+		input = gets.chomp.upcase
+		case input
+		when "Y" 
+			display_contact_with_number
+		when "N"
+			puts "Displaying all contacts:"
+			display_contact_with_number
+			else puts "You did not enter Y or N. Returning you to the main menu."
+		end
+	end
+	
+
+#this was an idea i had. It does not seem to be posible in Ruby AFAIK.
+	# def number_known_check(method)
+	# 	puts "Do you know the number of the contact you wish to display? Enter Y or N"
+	# 	input = gets.chomp.upcase
+	# 	case input
+	# 	when "Y" 
+	# 		method
+	# 	when "N"
+	# 		puts "Displaying all contacts:"
+	# 		display_all_contacts
+	# 		method
+	# 		else puts "You did not enter Y or N. Returning you to the main menu."
+	# 	end
+	# end
+
+
+	def modify_contact
+		display_all_contacts
+		puts "Please enter the number of the contact you wish to modify."
+		contact_id = gets.chomp.to_i
+		print_modify_menu
+		puts "Please enter the number of the attribute of the contact you wish to change:"
+		attribute = gets.chomp.to_i
+		if attribute.between?(1, 4)
+			puts "Please enter the modification:"
+			modification = gets.chomp
+			@rolodex.modify_contact(contact_id, attribute, modification)
+		else puts "You have not entered a valid number, please select another option:"
+		end
+
+	end
+
+	def print_modify_menu
+		puts "[1] Change first name"
+		puts "[2] Change last name"
+		puts "[3] Change email"
+		puts "[4] Change notes"
+	end
+
 
 
 	def add_contact
@@ -70,8 +131,8 @@ require_relative './rolodex.rb'
 		print "Note: "
 		note = gets.chomp
 		contact = Contact.new(first_name, last_name, email, note)
-		puts "contact created with data:"
-		puts ""
+		puts "contact created with data:"	
+		puts "#{first_name} #{last_name}, #{email}: #{note}"
 		@rolodex.add_contact(contact)
 	end
 
