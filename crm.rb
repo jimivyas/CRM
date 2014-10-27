@@ -137,7 +137,6 @@ require_relative './rolodex.rb'
 			@rolodex.modify_contact(contact_id, attribute, modification)
 		else puts "You have not entered a valid number, please select another option:"
 		end
-
 	end
 
 	def print_modify_menu
@@ -150,20 +149,32 @@ require_relative './rolodex.rb'
 
 
 	def add_contact
-		print "First Name: "
-		first_name = gets.chomp
-		print "Last Name: "
-		last_name = gets.chomp
-		print "Email: "
-		email = gets.chomp
-		print "Note: "
-		note = gets.chomp
+		#do the checking thing for all variables
+		first_name = value_checker("First Name")
+		last_name = value_checker("Last Name")
+		email = value_checker("Email")
+		note = value_checker("Note")
+		#now make the contact
 		contact = Contact.new(first_name, last_name, email, note)
 		puts "contact created with data:"	
 		puts "#{first_name} #{last_name}, #{email}: #{note}"
 		@rolodex.add_contact(contact)
 	end
 
+	def blank(input)
+		!(input.empty? || input.nil?)
+	end
+
+
+	def value_checker(string)
+		print "#{string}: "
+		input = gets.chomp
+			until blank(input)
+				puts "All fields are mandatory, please enter the value."
+				input = gets.chomp.strip
+			end
+		input #should return input
+	end
 end
 
 crm = CRM.new("jimi crm")
